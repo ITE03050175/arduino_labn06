@@ -1,0 +1,46 @@
+
+#include "pitches.h"    
+const byte Buzzer = 2; 
+const int rhythm = 500;
+char index;	
+int SoundLeng;	
+char song_tone;		
+
+
+int pitch[] = { 0,
+	NOTE_C4,NOTE_D4,NOTE_E4,NOTE_F4,NOTE_G4,NOTE_A4,NOTE_B4,
+	NOTE_C5,NOTE_D5,NOTE_E5,NOTE_F5,NOTE_G5,NOTE_A5,NOTE_B5 };
+
+float song[] = {5,1,
+3+7,1.5,	6,0.5,    	6,1,		6,0.33,		7,0.33,		1+7,0.33,
+2+7,0.75,	3+7,0.75,	2+7,0.25,	5,0.25,		1+7,1.5,	6,0.25,		7,0.25,
+1+7,1.5,	4,0.5,		4,1,		1+7,0.33,	7,0.33,		6,0.33,
+6,1,		5,1,		4+7,1,		3+7,1,
+5+7,0.75,	3+7,0.75,	6,0.25,		6,1.25,		0,1,
+3+7,0.33,	2+7,0.33,	1+7,0.33,	2+7,1,		5,0.33,		5,0.33,		2+7,0.33,	1+7,2,
+0,2,		6,0.5,		7,0.5,
+1+7,4,
+6,2,		7,2,
+1+7,4		-1,-1 };
+
+void setup() {
+  pinMode(Buzzer,OUTPUT);
+}
+
+void loop() {
+  index=0;      
+  while (1) {
+    song_tone = char(song[index]);		
+    index++;   
+    SoundLeng = int(song[index]*rhythm);	
+    index++;    
+    if (song_tone==-1)				
+        break;
+    else if (song_tone==0)			
+        delay(SoundLeng*1.3);			
+    else {
+        tone(Buzzer, pitch[song_tone], SoundLeng);	
+        delay(SoundLeng*1.3);			
+    }
+  }
+}
